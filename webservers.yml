@@ -1,0 +1,36 @@
+- name: Install webservers
+  hosts: web
+  remote_user: centos
+  become: yes
+  gather_facts: yes 
+  vars:
+    state: present
+
+  tasks:
+   - block: 
+     - name: Install Apache
+       yum: name={{ item }} state={{ state }}
+       with_items:
+         - httpd
+         - php
+         - memcached
+       notify: RestartApache
+     - name: Open Firewall ports 
+       firewalld: zone=public port=80/tcp permanent=true state=enabled
+       notify: ReloadFirewall 
+     - name: Active Apache 
+       service: name=httpd state=started
+    
+     - name: Getting Apache version 
+       shell: httpd -v|grep version|awk '{print $3}'|cut -f2 -d'/'
+       register: result
+     - debug: msg="Apache version {{ result.stdout }}"
+     when: ansible_distribution == 'CentOS'  
+
+  handlers: 
+    - name: RestartApache 
+      service: name=httpd state=restarted enabled=yes
+    - name: ReloadFirewall
+      shell: firewall-cmd --reload 
+
+
