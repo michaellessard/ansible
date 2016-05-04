@@ -1,0 +1,15 @@
+- name: update minecraft
+  hosts: minecraft
+  remote_user: server
+
+  tasks:
+   - name: delete buildtool
+     file: path=/home/server/BuildTools.jar state=absent
+   - name: download lastest buildtool
+     get_url: url=https://hub.spigotmc.org/jenkins/job/BuildTools/lastSuccessfulBuild/artifact/target/BuildTools.jar dest=/home/server/
+   - name: build java 
+     shell: cd /home/server; java -jar BuildTools.jar --rev 1.9
+   - name: copy new build 
+     shell: cp /home/server/spigot-1.9.jar /home/server/minecraft-server/minecraft_server.jar 
+   - name: stop minecraft service 
+     shell: /etc/init.d/minecraft stop 
