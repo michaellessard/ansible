@@ -18,11 +18,11 @@
   - name: Rename install directory
     command: chdir=/usr/share /bin/mv wildfly-10.1.0.Final jboss-as creates=/usr/share/jboss-as
   
-  - name: Download standalone.xml configuration file
-    get_url:
-       url: "http://people.redhat.com/mlessard/ansible/standalone.xml"
-       dest: dest=/usr/share/jboss-as/standalone/configuration/ 
-       mode: 0644
+#  - name: Download standalone.xml configuration file
+#    get_url:
+#       url: "http://people.redhat.com/mlessard/ansible/standalone.xml"
+#       dest: dest=/usr/share/jboss-as/standalone/configuration/ 
+#       mode: 0644
   
   - name: Add group "jboss"
     group: name=jboss
