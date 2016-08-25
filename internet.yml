@@ -51,3 +51,9 @@
          enabled: true
          state: started
 
+  - block: 
+    - name: get test php page
+      get_url: 
+        url: "http://people.redhat.com/mlessard/index.ansible" 
+        dest: /var/www/html/index.php 
+        mode: 0644 
