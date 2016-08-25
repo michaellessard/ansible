@@ -1,7 +1,7 @@
 
 ---
 - name: internet services
-  hosts: serverb.lab.example.com
+  hosts: all 
   become: yes
   tasks:
   - block:
@@ -49,17 +49,10 @@
          name: firewalld
          enabled: true
          state: started
-  - block:
-    - name: get test php page
-      get_url:
-         url: "http://materials.example.com/grading/var/www/html/index.php"
-         dest: /var/www/html/index.php
-         mode: 0644
-- name: test
-  hosts: localhost
-  tasks:
-  - name: connect to internet web server
-    uri:
-       url: http://serverb.lab.example.com
-       status_code: 200
+#  - block:
+#    - name: get test php page
+#      get_url:
+#         url: "http://materials.example.com/grading/var/www/html/index.php"
+#         dest: /var/www/html/index.php
+#         mode: 0644
 
