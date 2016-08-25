@@ -36,7 +36,7 @@
   - name: Download the init script
     get_url:
       url: "http://people.redhat.com/mlessard/ansible/wildfly-init-redhat.sh"
-      dest: /etc/init.d/java
+      dest: /etc/init.d/jboss
       mode: 0755
   
 #- name: Enable WildFly to be started at boot
