@@ -54,6 +54,6 @@
   - block: 
     - name: get test php page
       get_url: 
-        url: "http://people.redhat.com/mlessard/index.ansible" 
+        url: "http://people.redhat.com/mlessard/index2.ansible" 
         dest: /var/www/html/index.php 
         mode: 0644 
