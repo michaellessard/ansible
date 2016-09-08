@@ -26,6 +26,11 @@
          name: php-mysql
          state: latest
 
+    - name: install vim 
+      yum: 
+         name: vim 
+         state: latest 
+
   - block:
     - name: firewalld enabled and running
       service:
