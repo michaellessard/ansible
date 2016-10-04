@@ -8,7 +8,11 @@
     - name: latest httpd version installed
       yum:
         name: httpd
-        state: latest
+        state: latest 
+      register: install_result 
+
+    - debug: var=install_result 
+
     - name: latest firewalld version installed
       yum:
         name: firewalld
