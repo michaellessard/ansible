@@ -9,6 +9,9 @@
       yum:
         name: httpd
         state: latest 
+      register: result_install 
+
+    - debug: result_install.stdout       
 
     - name: latest firewalld version installed
       yum:
