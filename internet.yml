@@ -11,7 +11,8 @@
         state: latest 
       register: result_install 
 
-    - debug: result_install.stdout       
+    - debug: 
+         var: result_install       
 
     - name: latest firewalld version installed
       yum:
