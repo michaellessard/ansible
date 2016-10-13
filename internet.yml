@@ -35,7 +35,9 @@
       yum: 
          name: vim 
          state: latest 
+      register: vim_stat 
 
+    - debug: var=vim_stat 
   - block:
     - name: firewalld enabled and running
       service:
