@@ -4,6 +4,7 @@
   hosts: all 
   become: yes
   tasks:
+
   - block:
     - name: latest httpd version installed
       yum:
@@ -31,13 +32,6 @@
          name: php-mysql
          state: latest
 
-    - name: install vim 
-      yum: 
-         name: vim 
-         state: latest 
-      register: vim_stat 
-
-    - debug: var=vim_stat 
   - block:
     - name: firewalld enabled and running
       service:
