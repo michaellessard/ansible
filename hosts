@@ -1,0 +1,7 @@
+[all:vars]
+ansible_ssh_user=mlessard
+
+[rhel72]
+rhel72demoansible ansible_ssh_host=192.168.122.53
+
+
