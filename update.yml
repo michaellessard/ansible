@@ -7,3 +7,10 @@
      - name: yum update 
        yum: name=* state=latest 
 
+     - name: restart machine
+       shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+       async: 1
+       poll: 0
+       sudo: true
+       ignore_errors: true
+
