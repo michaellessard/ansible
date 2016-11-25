@@ -8,16 +8,19 @@
 
   tasks:
    - block: 
+
      - name: Install Apache
        yum: name={{ item }} state={{ state }}
        with_items:
          - httpd
          - php
-         - vim 
+         - vim
        notify: RestartApache
+
      - name: Open Firewall ports 
        firewalld: zone=public port=80/tcp permanent=true state=enabled
        notify: ReloadFirewall 
+
      - name: Active Apache 
        service: name=httpd state=started
     
@@ -31,6 +34,7 @@
   handlers: 
     - name: RestartApache 
       service: name=httpd state=restarted enabled=yes
+
     - name: ReloadFirewall
       shell: firewall-cmd --reload 
 
