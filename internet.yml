@@ -31,6 +31,10 @@
       yum:
          name: php-mysql
          state: latest
+      register: result_php_install
+
+    - debug: 
+         var: result_php_install
 
   - block:
     - name: firewalld enabled and running
