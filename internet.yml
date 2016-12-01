@@ -19,6 +19,11 @@
       yum:
         name: firewalld
         state: latest
+      register: firewalldebug 
+   
+    - debug: 
+         var: firewalldebug 
+
     - name: latest mariadb-server version installed
       yum:
         name: mariadb-server
