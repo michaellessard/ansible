@@ -6,7 +6,10 @@
   tasks: 
      - name: yum update 
        yum: name=* state=latest 
-
+       register: result 
+     
+     - debug: result 
+     
      - name: restart machine
        shell: sleep 2 && shutdown -r now "Ansible updates triggered"
        async: 1
