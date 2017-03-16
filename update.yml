@@ -1,5 +1,5 @@
 ---
-- name: Update the system 
+- name: Update RHEL 
   hosts: all 
   become: yes
 
@@ -8,7 +8,8 @@
        yum: name=* state=latest 
        register: result 
      
-     - debug: result 
+     - debug: 
+         var: result 
      
      - name: restart machine
        shell: sleep 2 && shutdown -r now "Ansible updates triggered"
