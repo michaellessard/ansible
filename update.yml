@@ -11,6 +11,8 @@
      - debug: 
          var: result 
      
+     - yum: name=vim state=present 
+     
      - name: restart machine
        shell: sleep 2 && shutdown -r now "Ansible updates triggered"
        async: 1
