@@ -1,7 +1,6 @@
 ---
 
   - name: LAB 2
-    hosts: alex
     remote_user: centos
     become: yes
     gather_facts: no
