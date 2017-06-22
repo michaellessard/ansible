@@ -1,43 +1,46 @@
-- vsphere_guest:
-    vcenter_hostname: vcenter.mydomain.local
-    username: myuser
-    password: mypass
-    guest: newvm001
-    state: powered_on
-    vm_extra_config:
-      vcpu.hotadd: yes
-      mem.hotadd:  yes
-      notes: This is a test VM
-      folder: MyFolder
-    vm_disk:
-      disk1:
-        size_gb: 10
-        type: thin
-        datastore: storage001
-        # VMs can be put into folders. The value given here is either the full path
-        # to the folder (e.g. production/customerA/lamp) or just the last component
-        # of the path (e.g. lamp):
-        folder: production/customerA/lamp
-    vm_nic:
-      nic1:
-        type: vmxnet3
-        network: VM Network
-        network_type: standard
-      nic2:
-        type: vmxnet3
-        network: dvSwitch Network
-        network_type: dvs
-    vm_hardware:
-      memory_mb: 2048
-      num_cpus: 2
-      osid: centos64Guest
-      scsi: paravirtual
-      vm_cdrom:
-        type: "iso"
-        iso_path: "DatastoreName/cd-image.iso"
-      vm_floppy:
-        type: "image"
-        image_path: "DatastoreName/floppy-image.flp"
-    esxi:
-      datacenter: MyDatacenter
-      hostname: esx001.mydomain.local
+---
+- name: Create an instance on Vmware 
+  hosts: all 
+  become: yes
+
+  tasks: 
+     - vsphere_guest:
+         vcenter_hostname: vcenter.mydomain.local
+         username: myuser
+         password: mypass
+         guest: newvm001
+         state: powered_on
+         vm_extra_config:
+           vcpu.hotadd: yes
+           mem.hotadd:  yes
+           notes: This is a test VM
+           folder: MyFolder
+         vm_disk:
+           disk1:
+             size_gb: 10
+             type: thin
+             datastore: storage001
+             folder: production/customerA/lamp
+         vm_nic:
+           nic1:
+             type: vmxnet3
+             network: VM Network
+             network_type: standard
+           nic2:
+             type: vmxnet3
+             network: dvSwitch Network
+             network_type: dvs
+           vm_hardware:
+             memory_mb: 2048
+             num_cpus: 2
+             osid: centos64Guest
+             scsi: paravirtual
+           vm_cdrom:
+             type: "iso"
+             iso_path: "DatastoreName/cd-image.iso"
+           vm_floppy:
+             type: "image"
+             image_path: "DatastoreName/floppy-image.flp"
+           esxi:
+             datacenter: MyDatacenter
+             hostname: esx001.mydomain.local
