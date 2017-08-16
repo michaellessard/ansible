@@ -1,0 +1,20 @@
+---
+- name: Satellite 6 content-view publishing
+  hosts: satellite 
+  become: yes
+  gather_facts: yes 
+  vars:
+     organization: mlc 
+     description: Update date {{ ansible_date_time.date }} 
+     from_lifecycle_env: Library
+     to_lifecycle_env: Development 
+     content_views: [ 'RHEL7_SOE' ]
+  tasks:
+    - name: publishing content_views
+      command: hammer content-view publish --name {{ item }} --organization {{ organization }} --description '{{ description }}'
+      with_items: "{{content_views}}"
+
+    - name: promote contentview
+      command: hammer content-view version promote --content-view {{ item }} --organization {{ organization }} --from-lifecycle-environment {{ from_lifecycle_env }} --to-lifecycle-environment {{ to_lifecycle_env }}
+      with_items: "{{content_views}}"
+

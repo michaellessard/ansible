@@ -1,5 +1,5 @@
 - name: Install webservers
-  hosts: web
+  hosts: all 
   remote_user: centos
   become: yes
   gather_facts: yes 
