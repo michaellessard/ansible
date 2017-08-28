@@ -13,7 +13,6 @@
        with_items:
          - httpd
          - php
-         - vim 
        notify: RestartApache
      - name: Open Firewall ports 
        firewalld: zone=public port=80/tcp permanent=true state=enabled
