@@ -1,0 +1,46 @@
+---
+
+  - name: LAB 2
+    remote_user: centos
+    hosts: all
+    become: yes
+    gather_facts: no
+    vars:
+      selinux: permissive
+
+    tasks:
+      - name: SELINUX
+        selinux:
+          policy: targeted
+          state: "{{ selinux }}"
+
+      - name: MOTD
+        copy: src=motd dest=/etc/motd
+
+      - name: SSHD
+        lineinfile: dest=/etc/ssh/sshd_config
+                    line="PermitRootLogin no"
+                    state=present
+        notify: RestartSSH
+
+      - name: HTTPD
+        yum: name=httpd state=present
+        notify: StartApache
+
+      - name: WEB
+        copy: src=index.html dest=/var/www/html/index.html
+
+      - name: Open Firewall ports
+        firewalld: zone=public port=80/tcp permanent=true state=enabled
+        notify: ReloadFirewall
+      - debug: var=hostvars[inventory_hostname]['ansible_default_ipv4']['address']
+
+    handlers:
+      - name: StartApache
+        service: name=httpd state=started enabled=yes
+        
+      - name: RestartSSH
+        service: name=sshd state=restarted enabled=yes
+
+      - name: ReloadFirewall
+        shell: firewall-cmd --reload

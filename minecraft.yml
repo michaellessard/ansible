@@ -1,4 +1,4 @@
-- name: update minecraft
+- name: update minecraft spigot
   hosts: minecraft
   remote_user: server
 

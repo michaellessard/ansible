@@ -1,0 +1,74 @@
+
+---
+- name: internet services
+  hosts: all 
+  become: yes
+  tasks:
+
+  - block:
+    - name: latest httpd version installed
+      yum:
+        name: httpd
+        state: latest 
+      register: result_install 
+
+    - debug: 
+         var: result_install       
+
+    - name: latest firewalld version installed
+      yum:
+        name: firewalld
+        state: latest
+      register: firewalldebug 
+   
+    - debug: 
+         var: firewalldebug 
+
+    - name: latest mariadb-server version installed
+      yum:
+        name: mariadb-server
+        state: latest
+    - name: latest php version installed
+      yum:
+        name: php
+        state: latest
+    - name: latest php-mysql version installed
+      yum:
+         name: php-mysql
+         state: latest
+      register: result_php_install
+
+    - debug: 
+         var: result_php_install
+
+  - block:
+    - name: firewalld enabled and running
+      service:
+         name: firewalld
+         enabled: true
+         state: started
+    - name: firewalld permits http service
+      firewalld:
+          service: http
+          permanent: true
+          state: enabled
+          immediate: yes
+
+  - block:
+    - name: httpd enabled and running
+      service:
+        name: httpd
+        enabled: true
+        state: started
+    - name: mariadb enabled and running
+      service:
+         name: mariadb
+         enabled: true
+         state: started
+
+  - block: 
+    - name: get test php page
+      get_url: 
+        url: "http://people.redhat.com/mlessard/index2.ansible" 
+        dest: /var/www/html/index.php 
+        mode: 0644 

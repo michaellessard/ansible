@@ -1,6 +1,6 @@
 - name: Install webservers
-  hosts: centos 
-  remote_user: centos
+  hosts: all 
+  remote_user: mlessard 
   become: yes
   gather_facts: yes 
   vars:
@@ -8,16 +8,19 @@
 
   tasks:
    - block: 
+
      - name: Install Apache
        yum: name={{ item }} state={{ state }}
        with_items:
          - httpd
          - php
-         - vim 
+         - vim
        notify: RestartApache
+
      - name: Open Firewall ports 
        firewalld: zone=public port=80/tcp permanent=true state=enabled
        notify: ReloadFirewall 
+
      - name: Active Apache 
        service: name=httpd state=started
     
@@ -25,11 +28,13 @@
        shell: httpd -v|grep version|awk '{print $3}'|cut -f2 -d'/'
        register: result
      - debug: msg="Apache version {{ result.stdout }}"
-     when: ansible_distribution == 'CentOS'  
+     - debug: msg="IP adress is {{ ansible_all_ipv4_addresses }}" 
+     when: ansible_distribution == 'RedHat'  
 
   handlers: 
     - name: RestartApache 
       service: name=httpd state=restarted enabled=yes
+
     - name: ReloadFirewall
       shell: firewall-cmd --reload 
 
