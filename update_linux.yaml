@@ -18,7 +18,7 @@
         name=*
         state=latest
         update_cache=yes
-      regiseter: result   
+      register: result   
       when: 
         ansible_distribution == 'CentOS'
         or
