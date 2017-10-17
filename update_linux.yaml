@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Fedora upgrade
+      dnf:  
+        name=*
+        state=latest 
+      when: 
+        ansible_distribution == "Fedora" 
+    # This task updates RHEL and CentOS servers 
+    - name: RHEL/Centos upgrade 
+      yum: 
+        update_cache=yes
+        name=*
+        state=latest
+        update_cache=yes
+      when: 
+        ansible_distribution == 'CentOS'
+        or
+        ansible_distribution == 'RedHat'
+ 
+    # This task updates Debian and Ubuntu servers 
+    - name: .deb do dist-upgrade
+      apt: 
+        update_cache=yes
+        cache_valid_time=1200
+        upgrade=dist
+      when: 
+        ansible_distribution == 'Debian'
+        or
+        ansible_distribution == 'Ubuntu'
