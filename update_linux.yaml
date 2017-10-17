@@ -6,8 +6,11 @@
       dnf:  
         name=*
         state=latest 
+      register: fedora_result 
       when: 
         ansible_distribution == "Fedora" 
+    - debug: 
+         var: fedora_result 
     # This task updates RHEL and CentOS servers 
     - name: RHEL/Centos upgrade 
       yum: 
@@ -15,11 +18,13 @@
         name=*
         state=latest
         update_cache=yes
+      regiseter: result   
       when: 
         ansible_distribution == 'CentOS'
         or
         ansible_distribution == 'RedHat'
- 
+    - debug: 
+        var: result
     # This task updates Debian and Ubuntu servers 
     - name: .deb do dist-upgrade
       apt: 
