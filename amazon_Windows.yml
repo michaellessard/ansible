@@ -32,7 +32,7 @@
       region: us-east-1
       image: ami-4176943c
       group_id: "{{my_security_group.group_id}}"
-      key_name: mysshlaptop
+      key_name: laptop
       instance_tags:
         Name: "{{ instance_name }}"
       wait: yes
