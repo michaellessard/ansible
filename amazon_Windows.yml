@@ -1,0 +1,42 @@
+---
+
+- name: launching an ec2 instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  tasks:
+
+  - name: find a subnet id
+    ec2_vpc_subnet_facts:
+      region: us-east-1
+    register: subnet_ids
+
+  - debug: var=subnet_ids verbosity=5
+
+  - name: create a security group
+    ec2_group:
+      name: example
+      description: "Windows"
+      region: us-east-1
+      vpc_id: "{{subnet_ids.subnets[0].vpc_id}}"
+      rules:
+        - proto: tcp
+          from_port: 3389
+          to_port: 22
+          cidr_ip: 0.0.0.0/0
+    register: my_security_group
+  - debug: var=instance_name
+  - name: launch an ec2 instance
+    ec2:
+      instance_type: t2.micro
+      region: us-east-1
+      image: ami-4176943c
+      group_id: "{{my_security_group.group_id}}"
+      key_name: mysshlaptop
+      instance_tags:
+        Name: "{{ instance_name }}"
+      wait: yes
+      vpc_subnet_id: "{{subnet_ids.subnets[0].id}}"
+      assign_public_ip: yes
+    register: ec2
+  - debug: var=item.public_ip verbosity=5
