@@ -15,7 +15,7 @@
 
   - name: create a security group
     ec2_group:
-      name: example
+      name: Windows
       description: "Windows"
       region: us-east-1
       vpc_id: "{{subnet_ids.subnets[0].vpc_id}}"
