@@ -24,6 +24,10 @@
           from_port: 3389
           to_port: 3389
           cidr_ip: 0.0.0.0/0
+        - proto: tcp
+          from_port: 5986
+          to_port: 5986
+          cidr_ip: 0.0.0.0/0
     register: my_security_group
   - debug: var=instance_name
   - name: launch an ec2 instance
