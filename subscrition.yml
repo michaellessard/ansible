@@ -1,0 +1,23 @@
+---
+
+- name: Register RHEL 
+  hosts: lab 
+  become: yes
+  tasks:
+    - name: Register and subscribe to a pool
+      redhat_subscription:
+        state: present
+        username: michael.lessard@gmail.com 
+        password: password 
+        pool_ids:
+          - 8a85f98c62d0005f0162d53323ef28cc
+
+    - name: Disable all RHSM repositories
+      rhsm_repository:
+        name: '*'
+        state: disabled
+
+    - name: Enable a RHSM repository
+      rhsm_repository:
+        name: rhel-7-server-rpms
+
