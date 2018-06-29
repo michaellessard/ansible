@@ -7,10 +7,10 @@
     - name: Register and subscribe to a pool
       redhat_subscription:
         state: present
-        username: michael.lessard@gmail.com 
+        username: michael
         password: password 
         pool_ids:
-          - 8a85f98c62d0005f0162d53323ef28cc
+          - 8a85f98c62d0005f0162d5332
 
     - name: Disable all RHSM repositories
       rhsm_repository:
