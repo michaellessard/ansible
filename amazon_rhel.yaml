@@ -10,9 +10,7 @@
     ec2_vpc_subnet_facts:
       region: us-east-1
     register: subnet_ids
-
-  - debug: var=subnet_ids verbosity=5
-
+    
   - name: create a security group
     ec2_group:
       name: example
@@ -37,7 +35,7 @@
           to_port: 8080
           cidr_ip: 0.0.0.0/0
     register: my_security_group
-  - debug: var=instance_name
+
   - name: launch an ec2 instance
     ec2:
       instance_type: t2.micro
@@ -55,5 +53,4 @@
       vpc_subnet_id: "{{subnet_ids.subnets[0].id}}"
       assign_public_ip: yes
     register: ec2
-  - debug: var=item.public_ip verbosity=5
                                                                                                                                                                                                  1,1           Top
