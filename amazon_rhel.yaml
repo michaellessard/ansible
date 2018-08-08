@@ -42,7 +42,7 @@
     ec2:
       instance_type: t2.micro
       region: us-east-1
-      image: ami-c998b6b2
+      image: ami-6871a115
       group_id: "{{my_security_group.group_id}}"
       key_name: mysshlaptop
       volumes:
