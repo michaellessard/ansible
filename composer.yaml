@@ -1,0 +1,64 @@
+- hosts: all
+  become: yes
+
+  vars:
+    USE_FIREWALL: 1
+    MOUNT_REPOS_BASE: data/BaseOS
+    MOUNT_REPOS_APPSTREAM: data/AppStream
+
+  tasks:
+
+    - name:  Configure Composer Source Content for RHEL 8 base
+      yum_repository:
+        name: composer-rhel-8-BaseOS
+        description: Red Hat Enterprise Linux 8 Server (RPMs)
+        file: composer
+        metadata_expire: 86400
+        baseurl: file:///{MNT_REPOS_BASE}
+        gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+        enabled: 1
+        gpgcheck: 1
+        state: present
+
+    - name:  Configure Composer Source Content for RHEL 8 appstream
+      yum_repository:
+        name: composer-rhel-8-AppStream
+        description: Red Hat Enterprise Linux 8 AppStream
+        file: composer
+        metadata_expire: 86400
+        baseurl: files:///{MOUNT_REPOS_APPSTREAM}
+        gpgkey: file:///etc/pki/rpm-gpg/RPM-GPG-KEY-redhat-release
+        enabled: 1
+        gpgcheck: 1
+        state: present
+
+    - name: Install Composer & Cockpit packages
+      yum: 
+        name: cockpit-composer, composer-cli, lorax-composer
+        state: installed
+
+    - name: Configure Firewall for Cockpit
+      include_role:
+        name: linux-system-roles.firewall
+      vars:
+        firewall:
+          service: cockpit
+          state: enabled
+      when: USE_FIREWALL
+
+    - name: Enable and Start Composer service
+      service:
+        name: lorax-composer.service
+        state: started
+        enabled: yes
+
+    - name: Enable and Start Cockpit service
+      service:
+        name: cockpit.socket
+        state: started
+        enabled: yes
+
+    - name: Set SELinux in permissive mode
+      selinux:
+        policy: targeted
+        state: permissive
