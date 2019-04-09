@@ -94,7 +94,7 @@
             direction: Inbound
           - name: HTTP
             protocol: Tcp
-            destination_port_range: 80409fae25-74a2-49cb-ba8c-ada1321f002e
+            destination_port_range: 80
             access: Allow
             priority: 103
             direction: Inbound
