@@ -146,7 +146,7 @@
         admin_password: "{{ default_password }}"
         network_interfaces: "nic01{{vm_name}}"
         image:
-          offer: Centos
-          publisher: OpenLogic
-          sku: '7.4'
+          offer: RHEL
+          publisher: RedHat
+          sku: '7.5'
           version: latest
