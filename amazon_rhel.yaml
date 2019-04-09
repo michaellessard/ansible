@@ -40,7 +40,7 @@
     ec2:
       instance_type: t2.micro
       region: us-east-1
-      image: ami-6871a115
+      image: ami-011b3ccf1bd6db744
       group_id: "{{my_security_group.group_id}}"
       key_name: laptop
       volumes:
