@@ -129,7 +129,7 @@
           primary: "yes"
         security_group: "sg{{ vm_name }}"
 
-    - name: Create RHEL 7.5 VM
+    - name: Create RHEL 7.6 VM
       azure_rm_virtualmachine:
         client_id: "{{ azure_client_id }}"
         tenant: "{{ azure_tenant }}"
@@ -148,5 +148,5 @@
         image:
           offer: RHEL
           publisher: RedHat
-          sku: '7.5'
+          sku: '7.6'
           version: latest
