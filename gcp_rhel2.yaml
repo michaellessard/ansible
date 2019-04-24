@@ -1,0 +1,68 @@
+- name: Create an instance
+  hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+      gcp_project: my-project
+      gcp_cred_kind: serviceaccount
+      gcp_cred_file: /home/my_account.json
+      zone: "us-central1-a"
+      region: "us-central1"
+
+  tasks::q!
+   - name: create a disk
+     gcp_compute_disk:
+         name: 'disk-instance'
+         size_gb: 50
+         source_image: 'projects/ubuntu-os-cloud/global/images/family/ubuntu-1604-lts'
+         zone: "{{ zone }}"
+         project: "{{ gcp_project }}"
+         auth_kind: "{{ gcp_cred_kind }}"
+         service_account_file: "{{ gcp_cred_file }}"
+         scopes:
+           - https://www.googleapis.com/auth/compute
+         state: present
+     register: disk
+   - name: create a network
+     gcp_compute_network:
+         name: 'network-instance'
+         project: "{{ gcp_project }}"
+         auth_kind: "{{ gcp_cred_kind }}"
+         service_account_file: "{{ gcp_cred_file }}"
+         scopes:
+           - https://www.googleapis.com/auth/compute
+         state: present
+     register: network
+   - name: create a address
+     gcp_compute_address:
+         name: 'address-instance'
+         region: "{{ region }}"
+         project: "{{ gcp_project }}"
+         auth_kind: "{{ gcp_cred_kind }}"
+         service_account_file: "{{ gcp_cred_file }}"
+         scopes:
+           - https://www.googleapis.com/auth/compute
+         state: present
+     register: address
+   - name: create a instance
+     gcp_compute_instance:
+         state: present
+         name: test-vm
+         machine_type: n1-standard-1
+         disks:
+           - auto_delete: true
+             boot: true
+             source: "{{ disk }}"
+         network_interfaces:
+             - network: "{{ network }}"
+               access_configs:
+                 - name: 'External NAT'
+                   nat_ip: "{{ address }}"
+                   type: 'ONE_TO_ONE_NAT'
+         zone: "{{ zone }}"
+         project: "{{ gcp_project }}"
+         auth_kind: "{{ gcp_cred_kind }}"
+         service_account_file: "{{ gcp_cred_file }}"
+         scopes:
+           - https://www.googleapis.com/auth/compute
+     register: instance
