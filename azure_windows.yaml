@@ -111,7 +111,7 @@
             priority: 105
             direction: Inbound
 
-    - name: Create NIC for RHEL VM
+    - name: Create NIC
       azure_rm_networkinterface:
         client_id: "{{ azure_client_id }}"
         tenant: "{{ azure_tenant }}"
@@ -129,24 +129,24 @@
           primary: "yes"
         security_group: "sg{{ vm_name }}"
 
-    - name: Create RHEL VM - Latest release available
+    - name: provision new Azure virtual host
       azure_rm_virtualmachine:
         client_id: "{{ azure_client_id }}"
         tenant: "{{ azure_tenant }}"
         subscription_id: "{{ azure_subscription_id }}"
         secret: "{{ azure_secret }}"
-        resource_group: "{{ res_group }}"
-        name: "{{ vm_name }}"
-        vm_size: "{{ vm_size }}"
-        managed_disk_type: "{{ storage_class }}"
-        storage_account: "lrs{{ vm_name }}"
-        storage_container: "vms{{vm_name}}"
-        storage_blob: "{{vm_name}}.vhd"
         admin_username: "{{ default_username }}"
         admin_password: "{{ default_password }}"
-        network_interfaces: "nic01{{vm_name}}"
+        os_type: Windows
         image:
-          offer: RHEL
-          publisher: RedHat
-          sku: '7-RAW'
+          offer: WindowsServer
+          publisher: MicrosoftWindowsServer
+          sku: 2019-Datacenter
           version: latest
+        name: "{{ vm_name }}"
+        resource_group: "{{ res_group }}"
+        state: present
+        vm_size: Standard_D1
+        storage_account_name: "{{ vm_name }}"
+        virtual_network_name: "{{ vm_name }}"
+        subnet_name: "{{ vm_name }}"
