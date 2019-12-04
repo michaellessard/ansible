@@ -147,6 +147,10 @@
         resource_group: "{{ res_group }}"
         state: present
         vm_size: Standard_D1
-        storage_account_name: "{{ vm_name }}"
-        virtual_network_name: "{{ vm_name }}"
-        subnet_name: "{{ vm_name }}"
+        managed_disk_type: "{{ storage_class }}"
+        storage_account: "lrs{{ vm_name }}"
+        storage_container: "vms{{vm_name}}"
+        storage_blob: "{{vm_name}}.vhd"
+        admin_username: "{{ default_username }}"
+        admin_password: "{{ default_password }}"
+        network_interfaces: "nic01{{vm_name}}"SS
