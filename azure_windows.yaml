@@ -172,9 +172,9 @@
         tenant: "{{ azure_tenant }}"
         subscription_id: "{{ azure_subscription_id }}"
         secret: "{{ azure_secret }}"
-        name: "{{vmname}}-ext"
+        name: "{{vm_name}}-ext"
         resource_group: "{{ res_group }}"
-        virtual_machine_name: "{{ vmname }}"
+        virtual_machine_name: "{{ vm_name }}"
         publisher: Microsoft.Compute
         virtual_machine_extension_type: CustomScriptExtension
         type_handler_version: 1.9
