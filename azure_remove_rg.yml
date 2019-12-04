@@ -9,9 +9,9 @@
     azure_subscription_id: "{{ lookup('env', 'AZURE_SUBSCRIPTION_ID')}}"
     azure_secret: "{{ lookup('env', 'AZURE_SECRET')}}"
 
-
-  - name: Delete a resource group including resources it contains
-    azure_rm_resourcegroup:
-      name: "{{ ressource_group }}"
-      force_delete_nonempty: yes
-      state: absent
+  tasks: 
+    - name: Delete a resource group including resources it contains
+      azure_rm_resourcegroup:
+        name: "{{ ressource_group }}"
+        force_delete_nonempty: yes
+        state: absent
