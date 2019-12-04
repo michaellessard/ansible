@@ -152,7 +152,7 @@
         image:
           offer: WindowsServer
           publisher: MicrosoftWindowsServer
-          sku: 2019-Datacenter
+          sku: 2016-Datacenter
           version: latest
         name: "{{ vm_name }}"
         resource_group: "{{ res_group }}"
