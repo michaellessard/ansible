@@ -77,7 +77,7 @@
         allocation_method: Static
         name: "pbi01{{ vm_name }}"
 
-    - name: Create security group that allows incoming traffic on SSH/HTTP/HTTPS
+    - name: Create security group that allows incoming traffic on SSH/HTTP/HTTPS/8080
       azure_rm_securitygroup:
         client_id: "{{ azure_client_id }}"
         tenant: "{{ azure_tenant }}"
@@ -129,7 +129,7 @@
           primary: "yes"
         security_group: "sg{{ vm_name }}"
 
-    - name: Create RHEL 7.6 VM
+    - name: Create RHEL VM - Latest release available
       azure_rm_virtualmachine:
         client_id: "{{ azure_client_id }}"
         tenant: "{{ azure_tenant }}"
