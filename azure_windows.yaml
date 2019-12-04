@@ -1,0 +1,152 @@
+---
+- name: Create RHEL 7 VM in Azure
+  # Host is local as the Azure module runs from the Ansible control node.
+  hosts: localhost
+  connection: local
+  # No need to gather facts
+  gather_facts: false
+  vars:
+    vm_name: "{{ instance_name }}"
+    res_group: "demo"
+    res_group_location: eastus
+    storage_class: Standard_LRS
+    virtual_network_cidr: 10.0.0.0/24
+    default_username: "mlessard"
+    default_password: "1qaz2wsX!"
+    vm_size: Standard_D2_v3
+    ip_address: "10.0.0.10"
+    azure_client_id: "{{ lookup('env', 'AZURE_CLIENT_ID')}}"
+    azure_tenant: "{{ lookup('env', 'AZURE_TENANT')}}"
+    azure_subscription_id: "{{ lookup('env', 'AZURE_SUBSCRIPTION_ID')}}"
+    azure_secret: "{{ lookup('env', 'AZURE_SECRET')}}"
+
+  pre_tasks:
+    - name: Validate that we have a vm_name
+      assert:
+          that: vm_name is defined
+          msg: You need to pass vm_name as an extra parameter to execute this playbook
+
+  tasks:
+    - name: Create ressource group 
+      azure_rm_resourcegroup:
+        client_id: "{{ azure_client_id }}"
+        tenant: "{{ azure_tenant }}"
+        subscription_id: "{{ azure_subscription_id }}"
+        secret: "{{ azure_secret }}"
+        name: "{{ res_group }}"
+        location: "{{ res_group_location }}"
+
+    - name: Create storage account
+      azure_rm_storageaccount:
+        client_id: "{{ azure_client_id }}"
+        tenant: "{{ azure_tenant }}"
+        subscription_id: "{{ azure_subscription_id }}"
+        secret: "{{ azure_secret }}"
+        resource_group: "{{ res_group }}"
+        name: "lrs{{ vm_name }}"
+        account_type: "{{ storage_class }}"
+
+    - name: Create virtual network
+      azure_rm_virtualnetwork:
+        client_id: "{{ azure_client_id }}"
+        tenant: "{{ azure_tenant }}"
+        subscription_id: "{{ azure_subscription_id }}"
+        secret: "{{ azure_secret }}"
+        resource_group: "{{ res_group }}"
+        name: "vn{{ vm_name }}"
+        address_prefixes: "{{virtual_network_cidr}}"
+
+    - name: Add subnet
+      azure_rm_subnet:
+        client_id: "{{ azure_client_id }}"
+        tenant: "{{ azure_tenant }}"
+        subscription_id: "{{ azure_subscription_id }}"
+        secret: "{{ azure_secret }}"
+        resource_group: "{{ res_group }}"
+        name: "sn{{ vm_name }}"
+        address_prefix: "{{virtual_network_cidr}}"
+        virtual_network: "vn{{ vm_name }}"
+
+    - name: Create public ip for RHEL VM
+      azure_rm_publicipaddress:
+        client_id: "{{ azure_client_id }}"
+        tenant: "{{ azure_tenant }}"
+        subscription_id: "{{ azure_subscription_id }}"
+        secret: "{{ azure_secret }}"
+        resource_group: "{{ res_group }}"
+        allocation_method: Static
+        name: "pbi01{{ vm_name }}"
+
+    - name: Create security group that allows incoming traffic on SSH/HTTP/HTTPS/8080
+      azure_rm_securitygroup:
+        client_id: "{{ azure_client_id }}"
+        tenant: "{{ azure_tenant }}"
+        subscription_id: "{{ azure_subscription_id }}"
+        secret: "{{ azure_secret }}"
+        resource_group: "{{ res_group }}"
+        name: "sg{{vm_name}}"
+        rules:
+          - name: SSH
+            protocol: Tcp
+            destination_port_range: 22
+            access: Allow
+            priority: 101
+            direction: Inbound
+          - name: HTTP
+            protocol: Tcp
+            destination_port_range: 80
+            access: Allow
+            priority: 103
+            direction: Inbound
+          - name: HTTPS
+            protocol: Tcp
+            destination_port_range: 443
+            access: Allow
+            priority: 104
+            direction: Inbound
+          - name: Custom
+            protocol: Tcp
+            destination_port_range: 8080
+            access: Allow
+            priority: 105
+            direction: Inbound
+
+    - name: Create NIC for RHEL VM
+      azure_rm_networkinterface:
+        client_id: "{{ azure_client_id }}"
+        tenant: "{{ azure_tenant }}"
+        subscription_id: "{{ azure_subscription_id }}"
+        secret: "{{ azure_secret }}"
+        resource_group: "{{ res_group }}"
+        name: "nic01{{ vm_name }}"
+        virtual_network: "vn{{ vm_name }}"
+        subnet: "sn{{ vm_name }}"
+        ip_configurations:
+        - name: "primary"
+          public_ip_name: "pbi01{{ vm_name }}"
+          private_ip_address: "{{ ip_address }}"
+          private_ip_allocation_method: "Static"
+          primary: "yes"
+        security_group: "sg{{ vm_name }}"
+
+    - name: Create RHEL VM - Latest release available
+      azure_rm_virtualmachine:
+        client_id: "{{ azure_client_id }}"
+        tenant: "{{ azure_tenant }}"
+        subscription_id: "{{ azure_subscription_id }}"
+        secret: "{{ azure_secret }}"
+        resource_group: "{{ res_group }}"
+        name: "{{ vm_name }}"
+        vm_size: "{{ vm_size }}"
+        managed_disk_type: "{{ storage_class }}"
+        storage_account: "lrs{{ vm_name }}"
+        storage_container: "vms{{vm_name}}"
+        storage_blob: "{{vm_name}}.vhd"
+        admin_username: "{{ default_username }}"
+        admin_password: "{{ default_password }}"
+        network_interfaces: "nic01{{vm_name}}"
+        image:
+          offer: RHEL
+          publisher: RedHat
+          sku: '7-RAW'
+          version: latest
