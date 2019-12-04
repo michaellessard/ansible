@@ -13,5 +13,5 @@
     - name: Delete a resource group including resources it contains
       azure_rm_resourcegroup:
         name: "{{ ressource_group }}"
-#   force_delete_nonempty: yes
+        force: yes
         state: absent
