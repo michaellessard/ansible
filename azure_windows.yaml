@@ -116,6 +116,11 @@
             access: Allow
             priority: 106
             direction: Inbound
+          - name: Ansible
+            protocol: Tcp
+            destination_port_range: 5985
+            priority: 107
+            direction: Inbound 
 
     - name: Create NIC
       azure_rm_networkinterface:
