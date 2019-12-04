@@ -172,7 +172,7 @@
         tenant: "{{ azure_tenant }}"
         subscription_id: "{{ azure_subscription_id }}"
         secret: "{{ azure_secret }}"
-        name: "vmname"-ext
+        name: "{{vmname}}-ext"
         resource_group: "{{ res_group }}"
         virtual_machine_name: "{{ vmname }}"
         publisher: Microsoft.Compute
