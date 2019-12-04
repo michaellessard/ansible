@@ -165,3 +165,19 @@
         admin_username: "{{ default_username }}"
         admin_password: "{{ default_password }}"
         network_interfaces: "nic01{{vm_name}}"
+
+    - name: Configure winrm for Ansible 
+      azure_rm_virtualmachine_extension:
+        client_id: "{{ azure_client_id }}"
+        tenant: "{{ azure_tenant }}"
+        subscription_id: "{{ azure_subscription_id }}"
+        secret: "{{ azure_secret }}"
+        name: "vmname"-ext
+        resource_group: "{{ res_group }}"
+        virtual_machine_name: "{{ vmname }}"
+        publisher: Microsoft.Compute
+        virtual_machine_extension_type: CustomScriptExtension
+        type_handler_version: 1.9
+        settings:
+          CommandToExecute: "powershell -ExecutionPolicy Unrestricted -file provision.ps1" 
+          FileUris: [ "https://raw.githubusercontent.com/michaellessard/ansible/master/active_ansible.ps1" ]
