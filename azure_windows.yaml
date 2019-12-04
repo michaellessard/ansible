@@ -110,6 +110,12 @@
             access: Allow
             priority: 105
             direction: Inbound
+          - name: RDP
+            protocol: Tcp
+            destination_port_range: 3389
+            access: Allow
+            priority: 106
+            direction: Inbound
 
     - name: Create NIC
       azure_rm_networkinterface:
