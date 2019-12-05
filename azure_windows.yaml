@@ -1,5 +1,5 @@
 ---
-- name: Create RHEL 7 VM in Azure
+- name: Create windows vm in Azure
   # Host is local as the Azure module runs from the Ansible control node.
   hosts: localhost
   connection: local
@@ -67,7 +67,7 @@
         address_prefix: "{{virtual_network_cidr}}"
         virtual_network: "vn{{ vm_name }}"
 
-    - name: Create public ip for RHEL VM
+    - name: Create public ip 
       azure_rm_publicipaddress:
         client_id: "{{ azure_client_id }}"
         tenant: "{{ azure_tenant }}"
@@ -77,7 +77,7 @@
         allocation_method: Static
         name: "pbi01{{ vm_name }}"
 
-    - name: Create security group that allows incoming traffic on SSH/HTTP/HTTPS/8080
+    - name: Create security group that allows incoming traffic on SSH/HTTP/RDP/WINRM
       azure_rm_securitygroup:
         client_id: "{{ azure_client_id }}"
         tenant: "{{ azure_tenant }}"
@@ -98,27 +98,15 @@
             access: Allow
             priority: 103
             direction: Inbound
-          - name: HTTPS
-            protocol: Tcp
-            destination_port_range: 443
-            access: Allow
-            priority: 104
-            direction: Inbound
-          - name: Custom
-            protocol: Tcp
-            destination_port_range: 8080
-            access: Allow
-            priority: 105
-            direction: Inbound
           - name: RDP
             protocol: Tcp
             destination_port_range: 3389
             access: Allow
             priority: 106
             direction: Inbound
-          - name: Ansible
+          - name: WinRM
             protocol: Tcp
-            destination_port_range: 5985
+            destination_port_range: 5986
             priority: 107
             direction: Inbound 
 
