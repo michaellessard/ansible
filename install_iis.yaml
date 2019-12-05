@@ -22,13 +22,6 @@
         #name: "Default Web Site"
         # state: absent
 
-
-    - name: create new IIS website
-      win_iis_website:
-        name: Ansible Demo
-        state: started
-        physical_path: C:\ansible
-
     - name: w3svc reset
       win_service:
         name: w3svc
