@@ -167,13 +167,13 @@
         virtual_machine_extension_type: CustomScriptExtension
         type_handler_version: 1.9
         settings:
-          CommandToExecute: "powershell -ExecutionPolicy Unrestricted -file provision.ps1" 
+          CommandToExecute: "powershell -ExecutionPolicy Unrestricted -file active_ansible.ps1" 
           FileUris: [ "https://raw.githubusercontent.com/michaellessard/ansible/master/active_ansible.ps1" ]
       ignore_errors: true
       register: create_windows_vm_extension      
       tag: 
         - prep-windows 
-        
+
     - name: display debug 
       debug: 
         var: create_windows_vm_extension  
