@@ -1,6 +1,7 @@
 ---
 - name: Create a local user
   hosts: all
+  gather_facts: no
   tasks:
     - name: Ensure user david is present
       win_user:

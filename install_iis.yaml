@@ -1,6 +1,7 @@
 ---
 - name: installe et configure IIS
   hosts: windows
+  gather_facts: no
   vars:
     port: 8080
   tasks:
