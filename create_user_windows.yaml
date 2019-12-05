@@ -1,0 +1,11 @@
+---
+- name: Create a local user
+  hosts: all
+  tasks:
+    - name: Ensure user david is present
+      win_user:
+        name: david
+        password: B0bP4ssw0rd
+        state: present
+        groups:
+          - Users
