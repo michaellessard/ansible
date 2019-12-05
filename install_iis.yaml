@@ -1,0 +1,34 @@
+---
+- name: installe et configure IIS
+  hosts: windows
+  vars:
+    port: 8080
+  tasks:
+    - name: create a folder to store IIS site
+      win_file:
+        path: C:\ansible
+        state: directory
+
+
+    - name: install the IIS features
+      win_feature:
+        name: Web-Server
+        state: present
+        include_sub_features: yes
+        include_management_tools: no
+        #   - name: delete default IIS website
+        # win_iis_website:
+        #name: "Default Web Site"
+        # state: absent
+
+
+    - name: create new IIS website
+      win_iis_website:
+        name: Ansible Demo
+        state: started
+        physical_path: C:\ansible
+
+    - name: w3svc reset
+      win_service:
+        name: w3svc
+        state: started
