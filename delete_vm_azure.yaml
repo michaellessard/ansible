@@ -1,0 +1,17 @@
+
+---
+- name: Create windows vm in Azure
+  # Host is local as the Azure module runs from the Ansible control node.
+  hosts: localhost
+  connection: local
+  # No need to gather facts
+  gather_facts: false
+
+- name: remove vm and all resources except public ips
+  azure_rm_virtualmachine:
+    resource_group: demo
+    name: "{{ instance_name }}"
+    state: absent
+    remove_on_absent:
+        - network_interfaces
+        - virtual_storage
