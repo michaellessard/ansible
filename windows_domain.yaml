@@ -12,6 +12,7 @@
     - name: add a domain user
       win_domain_user:
          name: david
+         password: WinPaswd!1231290!_
          upn: david@mydomain.local
          groups:
            - Domain Admins
