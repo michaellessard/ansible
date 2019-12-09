@@ -1,0 +1,9 @@
+---
+- name: Install firefox with chocolatey
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Install Firefox
+      win_chocolatey:
+        name: firefox
+        state: absent
