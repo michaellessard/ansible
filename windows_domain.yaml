@@ -7,7 +7,7 @@
     - name: create a domain
       win_domain:
         dns_domain_name: mydomain.local
-        safe_mode_password: 1qaz2wsX!
+        safe_mode_password: WinPaswd!1231290!_
 
     - name: add a domain user
       win_domain_user:
