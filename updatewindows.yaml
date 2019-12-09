@@ -3,7 +3,7 @@
   hosts: all
   gather_facts: no
   tasks:
-    - name: update windowns 
+    - name: update Windows 
       win_updates:
       register: update_result    
     - name: reboot if required
