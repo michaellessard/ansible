@@ -1,0 +1,11 @@
+# Apply updates and reboot if necessary
+- name: Update windows and reboot if required
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: update windowns 
+      win_updates:
+      register: update_result    
+    - name: reboot if required
+      win_reboot:
+      when: update_result.reboot_required
