@@ -1,0 +1,17 @@
+---
+- name: Create a domain and a domain user
+  hosts: all
+  gather_facts: no
+  tasks:
+
+    - name: create a domain
+      win_domain:
+        dns_domain_name: mydomain.local
+        safe_mode_password: 1qaz2wsX!
+
+    - name: add a domain user
+      win_domain_user:
+         name: david
+         upn: david@mydomain.local
+         groups:
+           - Domain Admins
