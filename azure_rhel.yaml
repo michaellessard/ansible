@@ -44,7 +44,7 @@
         secret: "{{ azure_secret }}"
         resource_group: "{{ res_group }}"
         name: "lrs{{ vm_name }}"
-        account_type: "{{ storage_class }}"
+        type: "{{ storage_class }}"
 
     - name: Create virtual network
       azure_rm_virtualnetwork:
