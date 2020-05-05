@@ -10,7 +10,8 @@
     ec2_vpc_subnet_facts:
       region: us-east-1
     register: subnet_ids
-    
+  - debug: 
+       var: subnet_ids
   - name: create a security group
     ec2_group:
       name: example
