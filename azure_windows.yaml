@@ -1,3 +1,4 @@
+# Create a windows VM on Azure and activate winrm for Ansible 
 ---
 - name: Create windows vm in Azure
   hosts: localhost
@@ -148,8 +149,6 @@
         storage_account: "lrs{{ vm_name }}"
         storage_container: "vms{{vm_name}}"
         storage_blob: "{{vm_name}}.vhd"
-        admin_username: "{{ default_username }}"
-        admin_password: "{{ default_password }}"
         network_interfaces: "nic01{{vm_name}}"
 
     - name: Configure winrm for Ansible 
