@@ -34,7 +34,7 @@
   - debug: var=instance_name
   - name: launch an ec2 instance
     ec2:
-      instance_type: t2.micro
+      instance_type: t2.medium
       region: us-east-1
       image: ami-0f7122ac3de6f22b2
       group_id: "{{my_security_group.group_id}}"
