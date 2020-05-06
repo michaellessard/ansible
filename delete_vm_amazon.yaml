@@ -1,3 +1,11 @@
+---
+- name: Remove vm in Amazon
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  tasks: 
+
 - name: Terminate instances
   hosts: localhost
   tasks:
