@@ -43,13 +43,9 @@
       image: ami-011b3ccf1bd6db744
       group_id: "{{my_security_group.group_id}}"
       key_name: laptop
-      volumes:
-        - device_name: /dev/sda1
-          volume_size: 10
-          volume_type: gp2
       instance_tags:
         Name: "{{ instance_name }}"
       wait: yes
       vpc_subnet_id: "{{subnet_ids.subnets[0].id}}"
       assign_public_ip: yes
-                                                                                                                                                                                                 1,1           Top
+    register: ec2_instance  
