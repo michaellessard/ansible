@@ -9,7 +9,16 @@
   - name: find a subnet id
     ec2_vpc_subnet_info:
       region: us-east-1
-    register: subnet_ids
+    register: subnet_ids_info  
+  - debug: 
+      var: subnet_ids_info 
+
+  - name: find a subnet id
+    ec2_vpc_subnet_facts:
+      region: us-east-1
+    register: subnet_ids_facts
+  - debug: 
+      var: subnet_ids_facts
 
   - name: create a security group
     ec2_group:
