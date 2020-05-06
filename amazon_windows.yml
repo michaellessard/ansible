@@ -42,5 +42,7 @@
       wait: yes
       vpc_subnet_id: "{{subnet_ids.subnets[0].id}}"
       assign_public_ip: yes
+      user_data: "{{ lookup('template', userdata.txt.js') }}"
     register: ec2
+ 
   - debug: var=item.public_ip verbosity=5
