@@ -169,8 +169,6 @@
           FileUris: [ "https://raw.githubusercontent.com/michaellessard/ansible/master/active_ansible.ps1" ]
       ignore_errors: true
       register: create_windows_vm_extension      
-      tag: 
-        - prep-windows 
 
     - name: display debug 
       debug: 
