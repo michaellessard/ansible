@@ -53,5 +53,5 @@
     delegate_to: "{{ ec2.instances[0].public_ip }}"
     wait_for:
       port: 5986
-      host: "{{ ec2.instances.public[0]_ip }}"
+      host: "{{ ec2.instances[0].public_ip }}"
       timeout: 320 
