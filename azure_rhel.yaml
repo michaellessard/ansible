@@ -1,9 +1,7 @@
 ---
 - name: Create RHEL 7 VM in Azure
-  # Host is local as the Azure module runs from the Ansible control node.
   hosts: localhost
   connection: local
-  # No need to gather facts
   gather_facts: no
   vars:
     vm_name: "{{ instance_name }}"
