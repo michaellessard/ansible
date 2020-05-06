@@ -12,7 +12,8 @@
     virtual_network_cidr: 10.0.0.0/24
     default_username: "mlessard"
     default_password: "1qaz2wsX!"
-    vm_size: Standard_D2_v3
+#    vm_size: Standard_D2_v3 
+    vm_size: Standard_F4s_v2
     ip_address: "10.0.0.10"
     azure_client_id: "{{ lookup('env', 'AZURE_CLIENT_ID')}}"
     azure_tenant: "{{ lookup('env', 'AZURE_TENANT')}}"
