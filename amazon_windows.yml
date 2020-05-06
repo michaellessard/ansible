@@ -50,7 +50,6 @@
       var: ec2.instances[0].public_ip 
       
   - name: Wait for WINRM to come up
-    delegate_to: "{{ ec2.instances[0].public_ip }}"
     wait_for:
       port: 5986
       host: "{{ ec2.instances[0].public_ip }}"
