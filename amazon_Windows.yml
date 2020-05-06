@@ -7,7 +7,7 @@
   tasks:
 
   - name: find a subnet id
-    ec2_vpc_subnet_facts:
+    ec2_vpc_subnet_info:
       region: us-east-1
     register: subnet_ids
 
