@@ -53,5 +53,4 @@
       wait: yes
       vpc_subnet_id: "{{subnet_ids.subnets[0].id}}"
       assign_public_ip: yes
-    register: ec2_instance
                                                                                                                                                                                                  1,1           Top
