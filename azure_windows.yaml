@@ -152,7 +152,7 @@
         network_interfaces: "nic01{{vm_name}}"
 
     - name: Configure winrm for Ansible 
-      azure_rm_virtualmachine_extension:
+      azure_rm_virtualmachineextension:
         client_id: "{{ azure_client_id }}"
         tenant: "{{ azure_tenant }}"
         subscription_id: "{{ azure_subscription_id }}"
