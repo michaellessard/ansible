@@ -54,3 +54,6 @@
       port: 5986
       host: "{{ ec2.instances[0].public_ip }}"
       timeout: 320 
+
+  - debug: 
+      var: ec2.instances
