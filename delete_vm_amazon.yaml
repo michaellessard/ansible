@@ -12,4 +12,4 @@
     - name: Terminate instances that were previously launched
       ec2:
         state: 'absent'
-        instance_ids: '{{ ec2.instance_ids }}'
+        instance_ids: "{{ no_id_instance }}" 
