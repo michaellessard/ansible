@@ -15,12 +15,8 @@
       win_feature:
         name: Web-Server
         state: present
-        include_sub_features: yes
+        include_sub_features: no
         include_management_tools: no
-        #   - name: delete default IIS website
-        # win_iis_website:
-        #name: "Default Web Site"
-        # state: absent
 
     - name: w3svc reset
       win_service:
