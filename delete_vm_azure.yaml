@@ -10,7 +10,7 @@
   tasks: 
     - name: remove vm and all resources except public ips
       azure_rm_virtualmachine:
-        resource_group: demo
+        resource_group: "{{ rg_name }}"
         name: "{{ instance_name }}"
         state: absent
         remove_on_absent:
