@@ -6,17 +6,17 @@
   gather_facts: false
   tasks:
 
-  - name: find a subnet id
-    ec2_vpc_subnet_facts:
-      region: us-east-1
-    register: subnet_ids
+#  - name: find a subnet id
+#    ec2_vpc_subnet_facts:
+#      region: us-east-1
+#    register: subnet_ids
 
   - name: create a security group
     ec2_group:
       name: example
       description: "security FTW"
       region: us-east-1
-      vpc_id: "{{subnet_ids.subnets[0].vpc_id}}"
+      vpc_id: subnet-29e63245
       rules:
         - proto: tcp
           from_port: 80
