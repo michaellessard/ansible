@@ -47,9 +47,11 @@
       user_data: "{{ lookup('template', 'userdata.txt.j2') }}"
     register: ec2
   - debug: 
-      var: ec2.instances[0].public_ip 
-  - name : set id facts  
-    set_fact: 
+      var: ec2.instances[0].public_ip  
+      
+# set stats for Ansible Tower workflow      
+  - name : Set global variable for workflow   
+    set_stats: 
        no_id_instance: ec2.instances[0].id
 
   - name: Wait for WINRM to come up
