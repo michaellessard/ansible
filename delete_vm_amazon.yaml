@@ -12,5 +12,5 @@
     - name: Terminate instances that were previously launched
       ec2:
         state: 'absent'
-        region: us-east
+        region: us-east-1
         instance_ids: "{{ no_id_instance }}" 
