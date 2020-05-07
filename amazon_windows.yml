@@ -53,7 +53,7 @@
   - name : Set global variable for workflow   
     set_stats: 
       data: 
-        no_id_instance: "{{ ec2.instances[0].public_ip }}"
+        no_id_instance: "{{ ec2.instances[0].id }}"
 
   - name: Wait for WINRM to come up
     wait_for:
