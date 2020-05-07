@@ -7,4 +7,3 @@
       win_chocolatey:
         name: firefox
         state: present
-bob
