@@ -52,7 +52,8 @@
 # set stats for Ansible Tower workflow      
   - name : Set global variable for workflow   
     set_stats: 
-       no_id_instance: ec2.instances[0].id
+      data: 
+        no_id_instance: ec2.instances[0].id
 
   - name: Wait for WINRM to come up
     wait_for:
