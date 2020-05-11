@@ -5,7 +5,7 @@
   gather_facts: no
   vars:
     vm_name: "{{ instance_name }}"
-    res_group: "demo2"
+    res_group: "demo"
     res_group_location: eastus
     storage_class: Standard_LRS
     virtual_network_cidr: 10.0.0.0/24
