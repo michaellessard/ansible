@@ -36,7 +36,7 @@
     ec2:
       instance_type: t2.medium
       region: us-east-1
-      image: ami-0f7122ac3de6f22b2
+      image: ami-06f6f33114d2db0b1
       group_id: "{{my_security_group.group_id}}"
       key_name: laptop
       instance_tags:
