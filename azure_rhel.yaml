@@ -146,5 +146,5 @@
         image:
           offer: RHEL
           publisher: RedHat
-          sku: '9.0'
+          sku: '9_0'
           version: latest
