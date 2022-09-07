@@ -1,5 +1,5 @@
 ---
-- name: Create RHEL 7 VM in Azure
+- name: Create RHEL VM in Azure
   hosts: localhost
   connection: local
   gather_facts: no
@@ -146,5 +146,5 @@
         image:
           offer: RHEL
           publisher: RedHat
-          sku: '7-RAW'
+          sku: '90-gen2'
           version: latest
