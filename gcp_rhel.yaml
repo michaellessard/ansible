@@ -5,8 +5,8 @@
 
   vars:
     project_id: project-id
-    machine_type: n1-standard-1
-    image: rhel-9
+    machine_type: e2-medium
+    image: rhel-9-v20220822
 
   tasks:
 
