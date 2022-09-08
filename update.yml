@@ -1,5 +1,5 @@
 ---
-- name: Update RHEL9 
+- name: Update RHEL
   hosts: all 
   become: yes
 
