@@ -1,12 +1,10 @@
-- name: Create instance(s)
+- name: Delete an instance 
   hosts: localhost
   connection: local
   gather_facts: no
 
   vars:
     project_id: project-id
-    machine_type: n1-standard-1
-    image: rhel-9
 
   tasks:
 
