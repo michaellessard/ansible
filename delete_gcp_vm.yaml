@@ -1,0 +1,16 @@
+- name: Create instance(s)
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  vars:
+    project_id: project-id
+    machine_type: n1-standard-1
+    image: rhel-9
+
+  tasks:
+
+   - name: Terminate instances
+     gce:
+         instance_names: "{{ instance_name }}"
+         state: absent
