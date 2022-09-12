@@ -1,6 +1,6 @@
 ---
 
-- name: launching an ec2 instance
+- name: launching an ec2 instance 2
   hosts: localhost
   connection: local
   gather_facts: false
