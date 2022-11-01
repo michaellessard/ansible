@@ -5,8 +5,13 @@
   gather_facts: false
 
   tasks: 
-    - name: Terminate instances that were previously launched
+    - name: Gather Web Instance EC2 Facts.
+      ec2_instance_info:
+        filters:
+          "tag:Name": "{{ instance_name }}"
+      register: ec2_web
+
+    - name: Terminate EC2 Instance "{{ instance_name }}"
       ec2:
-        state: 'absent'
-        region: us-east-1
-        name: "{{ instance_name }}" 
+        instance_ids: "{{ ec2_web.instances[0].instance_id }}"
+        state: absent
