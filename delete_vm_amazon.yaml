@@ -7,7 +7,7 @@
   tasks: 
     - name: Gather Web Instance EC2 Facts.
       ec2_instance_info:
-      region: "us-east-1"
+        region: "us-east-1"
         filters:
           "tag:Name": "{{ instance_name }}"
       register: ec2_web
