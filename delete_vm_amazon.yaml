@@ -6,7 +6,7 @@
 
   tasks: 
     - name: Terminate instances that were previously launched
-      ec2:
+      amazon.aws.ec2_instance:
         state: 'absent'
         region: us-east-1
-        instance_ids: "{{ no_id_instance }}" 
+        name: "{{ instance_name }}" 
