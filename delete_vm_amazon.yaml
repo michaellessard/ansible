@@ -7,11 +7,13 @@
   tasks: 
     - name: Gather Web Instance EC2 Facts.
       ec2_instance_info:
+      region: "us-east-1"
         filters:
           "tag:Name": "{{ instance_name }}"
       register: ec2_web
 
     - name: Terminate EC2 Instance "{{ instance_name }}"
       ec2:
+        region: "us-east-1"
         instance_ids: "{{ ec2_web.instances[0].instance_id }}"
         state: absent
