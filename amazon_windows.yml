@@ -4,7 +4,7 @@
   hosts: localhost
   gather_facts: false
   vars:
-    win_initial_password: "1qaz2wsX!"
+    win_initial_password: "1qaz2wsX"
   tasks:
     name: find a subnet id
     ec2_vpc_subnet_info:
