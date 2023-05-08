@@ -10,7 +10,7 @@
     ec2_vpc_subnet_info:
       region: us-east-1
     register: subnet_ids
-    debug: var=subnet_ids verbosity=5
+#    debug: var=subnet_ids verbosity=5
 
 #  name: create a security group
 #    ec2_group:
