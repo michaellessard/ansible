@@ -11,8 +11,7 @@
       region: us-east-1
     register: subnet_ids
     
-    debug: var=subnet_ids verbosity=5
-  
+    debug: var=subnet_ids verbosity=5  
 #  name: create a security group
 #    ec2_group:
 #      name: Windows
@@ -29,7 +28,6 @@
 #          to_port: 5986
 #          cidr_ip: 0.0.0.0/0
 #    register: my_security_group
-
 #  - name: launch an ec2 instance
 #    ec2:
 #      instance_type: t2.medium
@@ -46,19 +44,15 @@
 #    register: ec2
 #  - debug: 
 #      var: ec2.instances[0].public_ip  
-      
 # set stats for Ansible Tower workflow      
 #  - name : Set global variable for workflow   
 #    set_stats: 
 #      data: 
 #        no_id_instance: "{{ ec2.instances[0].id }}"
-
-
 #  - name: Wait for WINRM to come up
 #    wait_for:
 #      port: 5986
 #      host: "{{ ec2.instances[0].public_ip }}"
-#      timeout: 320 
-
+#      timeout: 320 à
 #  - debug: 
 #      var: ec2.instances
