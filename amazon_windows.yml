@@ -1,63 +1,63 @@
 ---
-- name: launching an ec2 instance
-  hosts: localhost
-  connection: local
-  gather_facts: false 
-  vars: 
-    win_initial_password: "1qaz2wsX!"
-  tasks:
-  - name: find a subnet id
-    ec2_vpc_subnet_info:
-      region: us-east-1
-    register: subnet_ids
+name: launching an ec2 instance
+hosts: localhost
+gather_facts: false 
+vars: 
+  win_initial_password: "1qaz2wsX!"
+tasks:
+  name: find a subnet id
+  ec2_vpc_subnet_info:
+    region: us-east-1
+  register: subnet_ids
 
-  - debug: var=subnet_ids verbosity=5
+  debug: var=subnet_ids verbosity=5
+  
+#  name: create a security group
+#    ec2_group:
+#      name: Windows
+#      description: "Windows"
+#      region: us-east-1
+#      vpc_id: "{{subnet_ids.subnets[0].vpc_id}}"
+#      rules:
+#        - proto: tcp
+#          from_port: 3389
+#          to_port: 3389
+#          cidr_ip: 0.0.0.0/0
+#        - proto: tcp
+#          from_port: 5986
+#          to_port: 5986
+#          cidr_ip: 0.0.0.0/0
+#    register: my_security_group
 
-  - name: create a security group
-    ec2_group:
-      name: Windows
-      description: "Windows"
-      region: us-east-1
-      vpc_id: "{{subnet_ids.subnets[0].vpc_id}}"
-      rules:
-        - proto: tcp
-          from_port: 3389
-          to_port: 3389
-          cidr_ip: 0.0.0.0/0
-        - proto: tcp
-          from_port: 5986
-          to_port: 5986
-          cidr_ip: 0.0.0.0/0
-    register: my_security_group
-
-  - name: launch an ec2 instance
-    ec2:
-      instance_type: t2.medium
-      region: us-east-1
-      image: ami-06f6f33114d2db0b1
-      group_id: "{{my_security_group.group_id}}"
-      key_name: laptop
-      instance_tags:
-        Name: "{{ instance_name }}"
-      wait: yes
-      vpc_subnet_id: "{{subnet_ids.subnets[0].id}}"
-      assign_public_ip: yes
-      user_data: "{{ lookup('template', 'userdata.txt.j2') }}"
-    register: ec2
-  - debug: 
-      var: ec2.instances[0].public_ip  
+#  - name: launch an ec2 instance
+#    ec2:
+#      instance_type: t2.medium
+#      region: us-east-1
+#      image: ami-06f6f33114d2db0b1
+#      group_id: "{{my_security_group.group_id}}"
+#      key_name: laptop
+#      instance_tags:
+#        Name: "{{ instance_name }}"
+#      wait: yes
+#      vpc_subnet_id: "{{subnet_ids.subnets[0].id}}"
+#      assign_public_ip: yes
+#      user_data: "{{ lookup('template', 'userdata.txt.j2') }}"
+#    register: ec2
+#  - debug: 
+#      var: ec2.instances[0].public_ip  
       
 # set stats for Ansible Tower workflow      
-  - name : Set global variable for workflow   
-    set_stats: 
-      data: 
-        no_id_instance: "{{ ec2.instances[0].id }}"
+#  - name : Set global variable for workflow   
+#    set_stats: 
+#      data: 
+#        no_id_instance: "{{ ec2.instances[0].id }}"
 
-  - name: Wait for WINRM to come up
-    wait_for:
-      port: 5986
-      host: "{{ ec2.instances[0].public_ip }}"
-      timeout: 320 
 
-  - debug: 
-      var: ec2.instances
+#  - name: Wait for WINRM to come up
+#    wait_for:
+#      port: 5986
+#      host: "{{ ec2.instances[0].public_ip }}"
+#      timeout: 320 
+
+#  - debug: 
+#      var: ec2.instances
