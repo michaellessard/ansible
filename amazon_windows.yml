@@ -1,5 +1,4 @@
 ---
-
 - name: launching an ec2 instance
   hosts: localhost
   connection: local
@@ -7,7 +6,6 @@
   vars: 
     win_initial_password: "1qaz2wsX!"
   tasks:
-
   - name: find a subnet id
     ec2_vpc_subnet_info:
       region: us-east-1
