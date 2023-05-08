@@ -10,25 +10,24 @@
     ec2_vpc_subnet_info:
       region: us-east-1
     register: subnet_ids
-    debug: 
-      var: subnet_ids
 
-#  - name: create a security group
-#    ec2_group:
-#      name: Windows
-#      description: "Windows"
-#      region: us-east-1
-#      vpc_id: "{{subnet_ids.subnets[0].vpc_id}}"
-#      rules:
-#        - proto: tcp
-#          from_port: 3389
-#          to_port: 3389
-#          cidr_ip: 0.0.0.0/0
-#        - proto: tcp
-#          from_port: 5986
-#          to_port: 5986
-#          cidr_ip: 0.0.0.0/0
-#    register: my_security_group
+  - name: create a security group
+    ec2_group:
+      name: Windows
+      description: "Windows"
+      region: us-east-1
+      vpc_id: "{{subnet_ids.subnets[0].vpc_id}}"
+      rules:
+        - proto: tcp
+          from_port: 3389
+          to_port: 3389
+          cidr_ip: 0.0.0.0/0
+        - proto: tcp
+          from_port: 5986
+          to_port: 5986
+          cidr_ip: 0.0.0.0/0
+    register: my_security_group
+
 #  - name: launch an ec2 instance
 #    ec2:
 #      instance_type: t2.medium
