@@ -7,8 +7,11 @@
       win_updates:
         state: searched
         log_path: C:\ansible_wu.txt
-      register: update_results
+      register: available_updates
 
-    - name: report update results
-      debug:
-        var: update_results
+    - debug:
+      msg: |
+      {{ inventory_hostname }} has {{ available_updates.found_update_count }} updates available. The following updates are available for install:
+      {% for key, value in available_updates.updates.iteritems() %}
+      {{ value.kb | join(',') }}
+      {% endfor %}
