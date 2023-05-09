@@ -14,8 +14,7 @@
           % for k in update_results.updates %}
           {{ k.title }}
           {% endfor %}
-
-
+          
 #    - debug:
 #        msg: |
 #          {{ inventory_hostname }} has {{ available_updates.found_update_count }} updates available.
