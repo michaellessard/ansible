@@ -7,7 +7,7 @@
       win_updates:
         state: searched
         log_path: C:\ansible_wu.txt
-      register: available_updates
+      register: update_results
 
     - debug:
         msg: |
