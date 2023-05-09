@@ -6,11 +6,9 @@
     - name: Check for missing updates
       win_updates:
         state: searched
+        log_path: C:\ansible_wu.txt
       register: update_results
 
     - name: report update results
       debug:
-        msg: |
-          {% for k in update_results.updates %}
-          {{ k.title }}
-          {% endfor %}
+        var: update_results
