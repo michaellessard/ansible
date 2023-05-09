@@ -9,10 +9,12 @@
         log_path: C:\ansible_wu.txt
       register: update_results
 
-    - debug:
+          
+    - name: Report results
+      debug:
         msg: |
-          % for k in update_results.updates %}
-          {{ k.title }}
+          {% for k in update_results.updates %}
+          {{ update_results.updates[k].title }}
           {% endfor %}
           
 #    - debug:
