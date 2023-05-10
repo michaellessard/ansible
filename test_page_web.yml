@@ -8,6 +8,8 @@
      -  name: Affiche url
         debug:
           var: "{{ test_url }}"
+          
+
 #        
 #    - name: "verifie le status du site web"
 #      uri:
