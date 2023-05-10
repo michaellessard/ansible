@@ -3,7 +3,12 @@
   hosts: all
   vars: 
     test_url: http://{{ ansible_host }}
+
   tasks: 
+     -  name: Affiche url
+          debug:
+    	    msg: "{{ test_url }}" 
+
     - name: "verifie le status du site web"
       uri:
     	  url: "{{ test_url }}"
