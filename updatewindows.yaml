@@ -1,6 +1,5 @@
 # Apply updates and reboot if necessary
 - name: Update windows and reboot if required
-  hosts: all
   gather_facts: no
   tasks:
     - name: update Windows 
