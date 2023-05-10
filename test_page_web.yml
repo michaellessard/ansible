@@ -4,7 +4,7 @@
   tasks:
     - name: Set url details
       set_fact:
-    	test_url: "http://{{ ansible_host }}"
+    	test_url: http://{{ ansible_host }}
 
     - name: "verifie le status du site web"
       uri:
