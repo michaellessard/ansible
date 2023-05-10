@@ -9,4 +9,3 @@
         method: GET
         timeout: 30
         return_content: yes
-      register: out
