@@ -1,19 +1,17 @@
 ---
 - name: Test reponse page web
   hosts: all
-  tasks:
-    - name: Set url details
-      set_fact:
-    	test_url: http://{{ ansible_host }}
-
+  vars: 
+    test_url: http://{{ ansible_host }}
+  tasks: 
     - name: "verifie le status du site web"
       uri:
-    	url: "{{ test_url }}"
-    	method: GET
-    	timeout: 30
-    	return_content: yes
-  	register: out
+    	  url: "{{ test_url }}"
+    	  method: GET
+    	  timeout: 30
+    	  return_content: yes
+  	  register: out
 
    -  name: Print the msg
       debug:
-    	msg: "{{ out }}"
+    	  msg: "{{ out }}"
