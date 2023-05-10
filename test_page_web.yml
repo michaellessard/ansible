@@ -1,9 +1,8 @@
 ---
 - name: Test reponse page web
   hosts: all
-    
   tasks:         
-    - name: "verifie le status du site web
+    - name: verifie le status du site web
       uri:
         url: http://18.212.148.66
         method: GET
