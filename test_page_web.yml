@@ -3,12 +3,12 @@
   hosts: all
   vars: 
     test_url: 'http://{{ ansible_host }}'
-
+    
   tasks: 
      -  name: Affiche url
         debug:
     	    var: "{{ test_url }}"
-          
+         
     - name: "verifie le status du site web"
       uri:
     	  url: "{{ test_url }}"
@@ -16,7 +16,7 @@
     	  timeout: 30
     	  return_content: yes
   	  register: out
-
+      
    -  name: Print the msg
       debug:
     	  msg: "{{ out }}"
