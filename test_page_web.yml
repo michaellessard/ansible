@@ -10,7 +10,3 @@
         timeout: 30
         return_content: yes
       register: out
-      
-    - name: Print the msg
-      debug:
-        var: out
