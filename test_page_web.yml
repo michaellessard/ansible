@@ -11,6 +11,6 @@
         return_content: yes
       register: out
       
-#   -  name: Print the msg
-#      debug:
-#    	  msg: "{{ out }}"
+    - name: Print the msg
+      debug:
+        msg: "{{ out }}"
