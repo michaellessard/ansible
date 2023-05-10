@@ -2,13 +2,13 @@
 - name: Test reponse page web
   hosts: all
   vars: 
-    test_url: "http://{{ ansible_host }}"
+    test_url: 'http://{{ ansible_host }}'
 
   tasks: 
      -  name: Affiche url
         debug:
-    	    var: "{{ test_url }}" 
-
+    	    var: "{{ test_url }}"
+          
     - name: "verifie le status du site web"
       uri:
     	  url: "{{ test_url }}"
