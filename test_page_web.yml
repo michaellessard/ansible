@@ -13,4 +13,4 @@
       
     - name: Print the msg
       debug:
-        msg: "{{ out }}"
+        var: "{{ out }}"
