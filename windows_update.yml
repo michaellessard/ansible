@@ -1,6 +1,6 @@
 ---
-- hosts: windows
-  name: Mise à jour windows
+- name: Mise à jour Windows
+  hosts: all
   tasks:
     - name: Installer les mises à jour
       win_updates:
