@@ -7,7 +7,7 @@
   tasks: 
      -  name: Affiche url
           debug:
-    	    msg: "{{ test_url }}" 
+    	      var: "{{ test_url }}" 
 
     - name: "verifie le status du site web"
       uri:
