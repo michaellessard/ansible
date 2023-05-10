@@ -2,7 +2,7 @@
 - name: Test reponse page web
   hosts: all
   vars: 
-    test_url: 'http://{{ ansible_host }}'
+    test_url: http://{{ ansible_host }}
     
   tasks: 
      -  name: Affiche url
