@@ -3,7 +3,7 @@
   hosts: all
     
   tasks:         
-    - name: "verifie le status du site web"
+    - name: "verifie le status du site web
       uri:
     	  url: http://{{ ansible_host }}
     	  method: GET
