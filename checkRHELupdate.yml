@@ -1,5 +1,6 @@
 ---
 - name: verifie les maj disponible pour RHEL
+  hosts: all
   tasks: 
     - name: check for updates yum
       yum: 
