@@ -12,4 +12,7 @@
         msg: "{{ dnfoutput.results | map(attribute='name') | list }}"
     - name: list détaillée 
       debug: 
-        var: dnfoutput
+        var: dnfoutput 
+    - name: copy resultat sur host 
+      copy: 
+        content="{{ dnfoutput }}" dest=/tmp/updates.log
