@@ -4,6 +4,6 @@
   tasks:         
     - name: verifie le status du site web
       uri:
-        url: http://18.212.148.66
+        url: http://{{ ansible_host }}
         status_code: 200
       register: result
