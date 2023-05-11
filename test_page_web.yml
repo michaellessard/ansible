@@ -3,7 +3,7 @@
   hosts: all
   tasks:         
     - name: verifie le status du site web
-      uri:
+      win_uri:
         url: http://{{ ansible_host }}
         status_code: 200
       register: result
