@@ -6,4 +6,4 @@
       uri:
         url: http://18.212.148.66
         status_code: 200
-      register: register result
+      register: result
