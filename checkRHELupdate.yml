@@ -1,9 +1,12 @@
 ---
-- name: verifie les maj disponible pour RHEL
+- name: verifie les maj disponibles pour RHEL
   hosts: all
   tasks: 
-    - name: check for updates yum
+    - name: verifie les maj
       dnf: 
         list: updates
         update_cache: true
-      register: yumoutput
+      register: dnfoutput
+    - name: affiche resutat 
+      debug: 
+        var: dnfoutput
