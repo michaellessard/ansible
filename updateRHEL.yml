@@ -1,0 +1,22 @@
+---
+- name: Mise à joour de RHEL
+  hosts: all
+  tasks: 
+    - name: Upgrade all packages (yum)
+      yum:
+        name: '*'
+        state: latest
+        exclude: "{{ exclude_packages }}"
+        update_only: true
+      register: patchingresult
+  
+    - name: Check to see if we need a reboot
+      command: needs-restarting -r
+      register: result
+      changed_when: result.rc == 1
+      failed_when: result.rc > 1
+      check_mode: false
+
+    - name: Reboot Server if Necessary
+      ansible.builtin.reboot:
+      when: result.rc == 1
