@@ -7,6 +7,5 @@
         list: updates
         update_cache: true
       register: dnfoutput
-    - name: affiche resutat 
-      debug: 
-        var: dnfoutput
+    - debug:
+        msg: "{{ dnfoutput.results | map(attribute='name') | list }}"
