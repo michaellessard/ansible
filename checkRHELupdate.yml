@@ -7,5 +7,9 @@
         list: updates
         update_cache: true
       register: dnfoutput
-    - debug:
+    - name: liste contractée
+      debug:
         msg: "{{ dnfoutput.results | map(attribute='name') | list }}"
+    - name: list détaillée 
+      debug: 
+        var: dnfoutput
