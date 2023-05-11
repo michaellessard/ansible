@@ -1,0 +1,8 @@
+---
+- name: verifie les maj disponible pour RHEL
+  tasks: 
+    - name: check for updates yum
+      yum: 
+        list: updates
+        update_cache: true
+      register: yumoutput
