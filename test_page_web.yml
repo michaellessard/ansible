@@ -5,7 +5,5 @@
     - name: verifie le status du site web
       uri:
         url: http://18.212.148.66
-        method: GET
-        timeout: 30
-        return_content: yes
-      register: this
+        status_code: 200
+      register: register result
