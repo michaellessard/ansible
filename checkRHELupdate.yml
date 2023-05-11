@@ -3,7 +3,7 @@
   hosts: all
   tasks: 
     - name: check for updates yum
-      yum: 
+      dnf: 
         list: updates
         update_cache: true
       register: yumoutput
