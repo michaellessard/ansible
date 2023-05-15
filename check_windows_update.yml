@@ -1,5 +1,6 @@
 ---
 - name: windows server patching
+  gather_facts: no
   hosts: all
   tasks:
 
