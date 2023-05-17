@@ -1,6 +1,7 @@
 ---
 - name: verifie les maj disponibles pour RHEL
   hosts: all
+  gathering_facts: no
   tasks: 
     - name: verifie les maj
       dnf: 
