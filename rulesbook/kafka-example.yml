@@ -1,0 +1,19 @@
+---
+- name: Read messages from a kafka topic and act on them
+  hosts: localhost 
+  ## Define our source for events
+  sources:   
+    - ansible.eda.kafka:
+        host: 127.0.0.1 
+        port: 9092
+        topic: quickstart-events 
+        group_id:
+
+  ## Define the conditions we are looking for
+  rules:
+    - name: Say Hello
+      condition: event.body.message == "Ansible is cool"
+      ## Define the action we should take should the condition be met
+      action:
+        run_playbook:
+          name: say-what.yml

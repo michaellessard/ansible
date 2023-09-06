@@ -1,0 +1,16 @@
+- name: Rulebook to do something
+  hosts: localhost
+  sources:
+      - ansible.eda.file_watch:
+          path: "files/"
+          recursive: false
+          ignore_regexes: ['.*\\.pytest.*', '.*__pycache__.*', '.*/.git.*']
+  rules:
+      - name: trigger on change
+        condition: event.type == 'FileModifiedEvent' # 'modified'
+        action:
+           run_module:
+               name: copy
+               module_args:
+                   src: "{{ event.src_path }}"
+                   dest: "/tmp/files"
