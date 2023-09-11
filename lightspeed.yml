@@ -1,0 +1,14 @@
+---
+- name: Deploy monitoring 
+  hosts: monitoring 
+  become: true
+
+  module_defaults: 
+    ansible.posix.firewalld:
+      permanent: true 
+
+  tasks: 
+    - name: Include redhat.rhel_system_roles.cockpit 
+    - name: copy file/cockpit.conf to /etc/cockpit 
+    - name: Restart cockpit service 
+    - name: Allow cockpit through firewall    
