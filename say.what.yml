@@ -1,0 +1,7 @@
+---
+- name: say thanks
+  hosts: all
+  gather_facts: false
+  tasks:
+    - debug:
+        msg: "Thank you, {{ ansible_eda.event.body.sender | default('my friend') }}!"
