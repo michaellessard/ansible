@@ -17,7 +17,7 @@
         name: "Windows AD Events"
 
    - name: Security Event
-     condition: event.body.message is search("Microsoft-Windows-Windows Firewall With Advanced Security")
+     condition: event.body.message is search("A Windows Defender Firewall setting in the Private profile has changed")
      action:
        run_job_template:
          organization: "Default"
