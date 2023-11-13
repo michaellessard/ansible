@@ -42,7 +42,7 @@
        description: |-
         Details: {{ ansible_eda.event.body.message | default("") }}
         AI Enhanced Details: {{ response_text | default("") }}
-       register: new_incident
+      register: new_incident
 
     - set_fact:
         incident_number_cached: "{{ new_incident.record.number }}"
