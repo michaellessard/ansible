@@ -15,3 +15,10 @@
        run_job_template:
         organization: "Default"
         name: "Windows AD Events"
+
+    - name: Security Event
+      condition: event.body.message is search("Microsoft-Windows-Windows Firewall")
+      action:
+        run_job_template:
+          organization: "Default"
+          name: "Amelioration ticket Windows AI"
