@@ -5,9 +5,9 @@
     - servicenow.itsm
 
   vars:
-   SN_USERNAME: "kc6kztewd50z"
-   SN_PASSWORD: "kc6kztewd50z"
-   SN_HOST: "https://ansible.service-now.com"
+   SN_USERNAME: 
+   SN_PASSWORD: 
+   SN_HOST: 
 
   tasks:
    - name: Create incident
