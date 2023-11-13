@@ -44,9 +44,9 @@
         AI Enhanced Details: {{ response_text | default("") }}
        register: new_incident
 
-   - set_fact:
+    - set_fact:
         incident_number_cached: "{{ new_incident.record.number }}"
         cacheable: true
 
-   - debug:
+    - debug:
         msg: "A new incident has been created: {{ new_incident.record.number }}"
