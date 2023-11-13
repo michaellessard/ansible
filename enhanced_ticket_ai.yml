@@ -6,9 +6,6 @@
     api_key: 
     gpt_model: "gpt-3.5-turbo-instruct"
     gpt_prompt: "Please explain this Windows Event: {{ ansible_eda.event.body.winlog.event_id }} in the form of a Sci-fi Novel "
-    SN_USERNAME:
-    SN_PASSWORD:
-    SN_HOST:
 
   tasks:
     - name: Send API request to ChatGPT
