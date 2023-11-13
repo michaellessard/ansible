@@ -25,15 +25,10 @@
     - name: Extract text from API response
       set_fact:
         response_text: "{{ api_response.json.choices[0].text }}"
-        response_text2: "{{ api_response.json.choices[1].text }}" 
 
     - name: Display extracted text
       debug:
         var: response_text 
-
-    - name: Display extracted text2
-      debug:
-        var: response_text2
 
     - name: Display event id 
       debug: 
