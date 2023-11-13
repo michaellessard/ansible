@@ -4,10 +4,6 @@
   collections:
     - servicenow.itsm
 
-  vars:
-   SN_USERNAME: 
-   SN_PASSWORD: 
-   SN_HOST: 
 
   tasks:
    - name: Create incident
