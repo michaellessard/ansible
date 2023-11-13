@@ -22,6 +22,7 @@
        Details: {{ ansible_eda.event.body.message | default("") }}
        Event-ID: {{ ansible_eda.event.body.winlog.event_id | default("") }}
        Event-Outcome: {{ ansible_eda.event.body.event.outcome | default("") }}
+     register: new_incident
 
    - set_fact:
         incident_number_cached: "{{ new_incident.record.number }}"
