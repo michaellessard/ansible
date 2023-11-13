@@ -23,9 +23,9 @@
        Event-ID: {{ ansible_eda.event.body.winlog.event_id | default("") }}
        Event-Outcome: {{ ansible_eda.event.body.event.outcome | default("") }}
 
-    - set_fact:
+   - set_fact:
         incident_number_cached: "{{ new_incident.record.number }}"
         cacheable: true
 
-    - debug:
+   - debug:
         msg: "A new incident has been created: {{ new_incident.record.number }}"
