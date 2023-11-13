@@ -1,1 +1,45 @@
+---
+- name: Make API Call to ChatGPT
+  hosts: localhost
+  vars:
+    _url_: https://api.openai.com/v1/completions
+    api_key: 
+    gpt_model: "gpt-3.5-turbo-instruct"
+    gpt_prompt: "Please explain this Windows Event: {{ ansible_eda.event.body.winlog.event_id }} in the form of a Sci-fi Novel "
+    SN_USERNAME:
+    SN_PASSWORD:
+    SN_HOST:
 
+  tasks:
+    - name: Send API request to ChatGPT
+      uri:
+        url: "{{ _url_ }}"
+        method: POST
+        headers: 
+         Content-Type: application/json
+         Authorization: Bearer {{ api_key }}
+        body_format: json
+        body:
+          model: "{{ gpt_model }}"
+          prompt: "{{ gpt_prompt }}"
+          max_tokens: 100  # Adjust the max_tokens as needed
+      register: api_response
+
+    - name: Extract text from API response
+      set_fact:
+        response_text: "{{ api_response.json.choices[0].text }}"
+
+    - name: Display extracted text
+      debug:
+        var: response_text
+
+    - name: Create Enhanced incident Ticket
+      servicenow.itsm.incident:
+       instance:
+       state: new
+       short_description: "{{ ansible_eda.event.body.event.action }}"
+       description: |-
+        Details: {{ ansible_eda.event.body.message | default("") }}
+        AI Enhanced Details: {{ response_text | default("") }}
+     #  impact: 2  # Change this as needed
+     #  urgency: 2  # Change this as needed
