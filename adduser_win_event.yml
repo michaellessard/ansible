@@ -9,9 +9,9 @@
    - name: Create incident
      servicenow.itsm.incident:
       instance:
-       host: "ansible.servicenow.com"
-       username: "{{ SN_USERNAME }}"
-       password: "{{ SN_PASSWORD }}"
+       #host: "ansible.servicenow.com"
+       #username: "{{ SN_USERNAME }}"
+       #password: "{{ SN_PASSWORD }}"
       state: new
       short_description: "{{ ansible_eda.event.body.event.action }}"
       description: |-
