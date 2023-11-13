@@ -30,6 +30,10 @@
       debug:
         var: response_text
 
+    - name: Display event id 
+      debug: 
+        var: "{{ ansible_eda.event.body.winlog.event_id }}"
+
     - name: Create Enhanced incident Ticket
       servicenow.itsm.incident:
        instance:
@@ -38,5 +42,11 @@
        description: |-
         Details: {{ ansible_eda.event.body.message | default("") }}
         AI Enhanced Details: {{ response_text | default("") }}
-     #  impact: 2  # Change this as needed
-     #  urgency: 2  # Change this as needed
+       register: new_incident
+
+   - set_fact:
+        incident_number_cached: "{{ new_incident.record.number }}"
+        cacheable: true
+
+   - debug:
+        msg: "A new incident has been created: {{ new_incident.record.number }}"
