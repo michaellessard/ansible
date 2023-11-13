@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  gather_facts: false
+  collections:
+    - servicenow.itsm
+
+  vars:
+   SN_USERNAME:
+   SN_PASSWORD:
+   SN_HOST:
+
+  tasks:
+   - name: Create incident
+     servicenow.itsm.incident:
+      instance:
+       host: "{{ SN_HOST }}"
+       username: "{{ SN_USERNAME }}"
+       password: "{{ SN_PASSWORD }}"
+      state: new
+      short_description: "{{ ansible_eda.event.body.event.action }}"
+      description: |-
+       Details: {{ ansible_eda.event.body.message | default("") }}
+       Event-ID: {{ ansible_eda.event.body.winlog.event_id | default("") }}
+       Event-Outcome: {{ ansible_eda.event.body.event.outcome | default("") }}
