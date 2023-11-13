@@ -17,7 +17,7 @@
         name: "Windows AD Events"
 
    - name: Security Event
-     condition: event.body.message is search("Microsoft-Windows-Windows Firewall")
+     condition: event.body.message is search("Microsoft-Windows-Windows Firewall With Advanced Security")
      action:
        run_job_template:
          organization: "Default"
