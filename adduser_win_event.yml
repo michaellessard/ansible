@@ -9,7 +9,7 @@
    - name: Create incident
      servicenow.itsm.incident:
       instance:
-       host: "{{ SN_HOST }}"
+       host: "ansible.servicenow.com"
        username: "{{ SN_USERNAME }}"
        password: "{{ SN_PASSWORD }}"
       state: new
