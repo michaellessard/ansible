@@ -5,7 +5,7 @@
     _url_: https://api.openai.com/v1/completions
     api_key: 
     gpt_model: "gpt-3.5-turbo-instruct"
-    gpt_prompt: "Please explain this Microsoft Windows Firewall ID Event: {{ ansible_eda.event.body.winlog.event_id }} "
+    gpt_prompt: "Please explain this Microsoft Windows ID Event: {{ ansible_eda.event.body.winlog.event_id }} firewall"
 
   tasks:
     - name: Send API request to ChatGPT
