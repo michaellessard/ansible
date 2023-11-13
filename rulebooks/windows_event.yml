@@ -1,1 +1,17 @@
+---
+- name: Events from Windows AD
 
+  hosts: all
+  sources:
+   - ansible.eda.kafka:
+       host: ec2-18-206-246-169.compute-1.amazonaws.com
+       port: 9092
+       topic: logs
+
+  rules:
+   - name: AD Account Change
+     condition: event.body.winlog.event_id == "4722"
+     action:
+       run_job_template:
+        organization: "Default"
+        name: "Windows AD Events"
