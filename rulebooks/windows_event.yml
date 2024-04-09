@@ -4,7 +4,7 @@
   hosts: all
   sources:
    - ansible.eda.kafka:
-       host: ec2-54-83-150-171.compute-1.amazonaws.com
+       host: ec2-3-84-211-226.compute-1.amazonaws.com
        port: 9092
        topic: logs
 
