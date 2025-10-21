@@ -1,0 +1,25 @@
+---
+- name: Créer 10 utilisateurs avec home et mot de passe
+  hosts: all
+  become: true
+
+  vars:
+    # Modifiez cette variable avant d'exécuter, ou stockez-la avec ansible-vault
+    plain_password: "ChangeMe123!"   # <-- remplacez par un mot de passe sûr ou chiffrez via ansible-vault
+
+  tasks:
+    - name: Générer mot de passe chiffré (sha512)
+      set_fact:
+        hashed_pass: "{{ plain_password | password_hash('sha512') }}"
+
+    - name: Créer 10 utilisateurs user1..user10 avec home et mot de passe
+      ansible.builtin.user:
+        name: "user{{ item }}"
+        comment: "Utilisateur généré par Ansible"
+        shell: /bin/bash
+        create_home: yes
+        password: "{{ hashed_pass }}"
+        state: present
+      loop: "{{ query('sequence', 'start=1 end=10') }}"
+      loop_control:
+        label: "user{{ item }}"
