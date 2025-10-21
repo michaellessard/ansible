@@ -1,5 +1,5 @@
 ---
-- name: Mise à joour de RHEL 10
+- name: Mise à jour de RHEL 10
   hosts: all
   tasks: 
     - name: Upgrade all packages (dnf)
