@@ -6,7 +6,7 @@
       yum:
         name: '*'
         state: latest
-        exclude: "{{ exclude_packages }}"
+#        exclude: "{{ exclude_packages }}"
         update_only: true
       register: patchingresult
   
